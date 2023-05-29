@@ -1,0 +1,300 @@
+<section class="image-banner">
+  {% if section.settings.banner_layout == 'box_banner' %}
+    <div class="container">
+  {% endif %}
+  <div
+    class="ib-slider-holder"
+    data-autoplay="{{ section.settings.slider_autoplay }}"
+    data-autoplay-speed="{{ section.settings.slider_autoplay_speed }}"
+    data-slider-infinite="{{ section.settings.slider_loop }}"
+    data-slider-speed="{{ section.settings.slider_speed }}"
+    data-slider-control="{{ section.settings.show_slider_controls }}"
+  >
+    {% for block in section.blocks %}
+      <div class="ib-slider {{ block.settings.banner_txt_alignment }}">
+        <figure class="ib-slider-img">
+          <picture>
+            <!-- [if IE 9]><video style="display: none;"> -->
+            <!-- [endif]-- -->
+            <source
+              srcset="{{ block.settings.mobile_banner | image_url }}"
+              media="(max-width: 767px)"
+            >
+            <source srcset="{{ block.settings.desktop_banner | image_url }}">
+            <!--[if IE 9]> </video> <![endif]-->
+            <img
+              src="{{ block.settings.desktop_banner | img_url: '1280x' }}"
+              width="1280px"
+              height="550px"
+              alt="banner image"
+            >
+          </picture>
+        </figure>
+        <div
+          class="banner-overlay"
+          style="background: {{ section.settings.overlay_bg }}; opacity: {{ section.settings.overlay_opacity }}%"
+        ></div>
+        {% if block.settings.banner_subtitle
+          or block.settings.banner_maintitle
+          or block.settings.banner_desc
+          or block.settings.first_btn_url
+          or block.settings.second_btn_url
+        %}
+          <div class="ib-slider-content">
+            {% if section.settings.banner_layout == 'fullwidth_banner' %}
+              <div class="container">
+            {% endif %}
+            <div class="ib-slider-content-inner">
+              {% if block.settings.banner_subtitle %}
+                <div class="ib-slider-subtitle" style="color: {{ block.settings.slider_txt_color }}">
+                  {{ block.settings.banner_subtitle }}
+                </div>
+              {% endif %}
+              {% if block.settings.banner_maintitle %}
+                <h2 class="ib-slider-title" style="color: {{ block.settings.slider_txt_color }}">
+                  {{ block.settings.banner_maintitle }}
+                </h2>
+              {% endif %}
+              {% if block.settings.banner_desc %}
+                <div class="ib-slider-desc" style="color: {{ block.settings.slider_txt_color }}">
+                  {{ block.settings.banner_desc }}
+                </div>
+              {% endif %}
+              {% if block.settings.first_btn_url or block.settings.second_btn_url %}
+                <div class="btn-holder">
+                  {% if block.settings.first_btn_url %}
+                    <a
+                      href="{{ block.settings.first_btn_url }}"
+                      class="btn btn-primary"
+                      style="background-color: {{ block.settings.first_btn_bg }}; color: {{ block.settings.first_btn_color }}"
+                    >
+                      {{- block.settings.first_btn_txt -}}
+                    </a>
+                  {% endif %}
+                  {% if block.settings.second_btn_url %}
+                    <a
+                      href="{{ block.settings.second_btn_url }}"
+                      class="btn btn-link"
+                      style="background-color: {{ block.settings.second_btn_bg }}; color: {{ block.settings.second_btn_color }}"
+                    >
+                      {{- block.settings.second_btn_txt }}
+                      {% include 'icon-arrow-right' -%}
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+            {% if section.settings.banner_layout == 'fullwidth_banner' %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% if section.settings.banner_layout == 'box_banner' %}
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Image Slider",
+  "settings": [
+    {
+      "type": "radio",
+      "id": "banner_layout",
+      "label": "Banner layout",
+      "options": [
+        {
+          "value": "box_banner",
+          "label": "Box banner"
+        },
+        {
+          "value": "fullwidth_banner",
+          "label": "Fullwidth banner"
+        }
+      ],
+      "default": "box_banner"
+    },
+    {
+      "type": "color",
+      "id": "overlay_bg",
+      "label": "Overlay Background",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 5,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "slider_autoplay",
+      "label": "Enable slider autoplay",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "slider_autoplay_speed",
+      "label": "Autoplay speed (in milliseconds)",
+      "default": 3000
+    },
+    {
+      "type": "checkbox",
+      "id": "slider_loop",
+      "label": "Enable slider loop",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "slider_speed",
+      "label": "Slider speed (in milliseconds)",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "show_slider_controls",
+      "label": "Show slider controls",
+      "options": [
+        {
+          "value": "enable_arrows",
+          "label": "Show arrows"
+        },
+        {
+          "value": "enable_dots",
+          "label": "Show dots"
+        },
+        {
+          "value": "enable_both",
+          "label": "Show both"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desktop_banner",
+          "label": "Desktop banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_banner",
+          "label": "Mobile banner"
+        },
+        {
+          "type": "select",
+          "id": "banner_txt_alignment",
+          "label": "Text alignment",
+          "options": [
+            {
+              "value": "left_align",
+              "label": "Left"
+            },
+            {
+              "value": "center_align",
+              "label": "Center"
+            },
+            {
+              "value": "right_align",
+              "label": "Right"
+            }
+          ],
+          "default": "left_align"
+        },
+        {
+          "type": "text",
+          "id": "banner_subtitle",
+          "label": "Slider subtitle",
+          "default": "Slider sub heading"
+        },
+        {
+          "type": "text",
+          "id": "banner_maintitle",
+          "label": "Slider title",
+          "default": "Dummy banner slider heading"
+        },
+        {
+          "type": "textarea",
+          "id": "banner_desc",
+          "label": "Slider content",
+          "default": "This is a dummy content for the banner slider."
+        },
+        {
+          "type": "color",
+          "id": "slider_txt_color",
+          "label": "Slider text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "first_btn_txt",
+          "label": "First button label",
+          "default": "Buy Now"
+        },
+        {
+          "type": "url",
+          "id": "first_btn_url",
+          "label": "First button link"
+        },
+        {
+          "type": "color",
+          "id": "first_btn_bg",
+          "label": "Button background",
+          "default": "#303c43"
+        },
+        {
+          "type": "color",
+          "id": "first_btn_color",
+          "label": "Button text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "second_btn_txt",
+          "label": "Second button label",
+          "default": "Learn more"
+        },
+        {
+          "type": "url",
+          "id": "second_btn_url",
+          "label": "Second button link"
+        },
+        {
+          "type": "color",
+          "id": "second_btn_bg",
+          "label": "Button background",
+          "default": "#f66726"
+        },
+        {
+          "type": "color",
+          "id": "second_btn_color",
+          "label": "Button text color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Slider",
+      "category": "Slider",
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

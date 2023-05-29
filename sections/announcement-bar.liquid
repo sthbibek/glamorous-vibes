@@ -1,0 +1,60 @@
+{%- if section.settings.announcement_bar_enabled -%}
+  <div class="announcement-bar">
+    <div class="container">
+      <div class="announcement-slider">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'slide' %}
+              <div class="announcement-item">
+                {%- if block.settings.announcement_bar_link != blank
+                  and block.settings.announcement_bar_text != blank
+                -%}
+                  <a href="{{ block.settings.announcement_bar_link }}">
+                    {{ block.settings.announcement_bar_text }}
+                  </a>
+                {%- else -%}
+                  {% if block.settings.announcement_bar_text != blank %}
+                    <p>{{ block.settings.announcement_bar_text }}</p>
+                  {% endif %}
+                {%- endif -%}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "announcement_bar_enabled",
+      "label": "Show announcement",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Item",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "announcement_bar_text",
+          "label": "Announcement text",
+          "default": "Announce something here"
+        },
+        {
+          "type": "url",
+          "id": "announcement_bar_link",
+          "label": "Announcement link",
+          "info": "Optional"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,38 @@
+/*
+Theme Name: Matat Child
+Theme URI: https://matat.co.il/
+Template:   matat
+Author: Amit Matat
+Author URI: https://matat.co.il/
+Description: Matat child theme
+Version: 1.1
+License: Commercial Use only
+License URI: Commercial Use only
+Text Domain: matat
+*/
+
+@import "vendors/bootstrap/functions";
+@import "vendors/bootstrap/variables";
+@import "bootstrap-custom";
+@import "vendors/bootstrap/mixins";
+
+// @import "bootstrap";
+
+@import 'base/functions';
+@import 'base/mixins';
+@import 'vendors/fonts';
+@import 'base/helpers';
+@import 'base/wp-reset';
+@import 'base/typography';
+@import 'vendors/slick-lightbox';
+@import 'vendors/slick';
+
+@import 'layout/general';
+@import 'layout/header';
+@import 'components/login-modal';
+@import 'components/image-banner';
+
+@import 'pages/home';
+
+@import 'layout/footer';
+

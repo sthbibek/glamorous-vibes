@@ -1,0 +1,652 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available in the "Header" section in the theme editor.
+
+  Theme Store required settings
+  - Show announcement
+  - Text: message to announce
+  - Link: link of the announcement bar
+
+  Theme Store optional settings
+  - Home page only: only shows on the home page
+{%- endcomment -%}
+
+{% if section.settings.sticky_header_enable %}
+  <header id="header" class="site-header sticky-enabled" role="header">
+{% else %}
+  <header id="header" class="site-header" role="header">
+{% endif %}
+  <div class="h-top d-none d-md-block">
+    <div class="container">
+      <div class="h-top__left">
+        <nav class="top-menu">
+          <ul class="menu-list">
+            {% for link in linklists[section.settings.top_menu].links %}
+              {% assign active_class = ' current-menu-item' %}
+              {% capture activeClass %}{% if link.active %}{{ active_class }}{% endif %}{% endcapture %}
+              <li class="menu-item{{ activeClass }}">
+                <a href="{{ link.url }}">
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+      {% if section.settings.header_social_enable %}
+        <div class="h-top__right">
+          {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+          <ul class="h-top__social">
+            {% for social in social_accounts %}
+              {%- assign social_handle = social | handleize -%}
+              {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+              {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+
+              {% if settings[social_link] != blank %}
+                <li>
+                  <a href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                    {% include social_icon %}
+                  </a>
+                </li>
+              {% endif %}
+
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="h-bottom">
+    <div class="container">
+      <div class="menu-tgl-holder d-md-none">
+        <button class="menu-toggle-btn menu-control-btn">
+          <span class="toggle-bar"></span>
+        </button>
+      </div>
+      <div class="logo-holder">
+        {% if template.name == 'index' %}
+          <h1>
+        {% else %}
+          <div class="h1">
+        {% endif %}
+            <a href="/" class="logo-image">
+              {% if section.settings.logo != blank %}
+                {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+                <img src="{{ section.settings.logo | img_url: image_size }}"
+                    srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                    alt="{{ section.settings.logo.alt | default: shop.name }}" />
+              {% else %}
+                {{ shop.name }}
+              {% endif %}
+            </a>
+        {% if template.name == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="h-bottom__actions">
+        {% if section.settings.header_search_enable %}
+          <div class="header-search">
+            <button class="search-toggle">{% include 'icon-search' %}</button>
+          </div>
+
+          <div class="header-search-pop">
+              <div class="header-search-inner">
+                <form action="/search" method="get" role="search">
+                  <label for="Search-{{ section.id }}" class="sr-only">
+                    {{ 'general.search.placeholder' | t }}
+                  </label>
+            
+                  <input type="search"
+                    name="q"
+                    id="Search-{{ section.id }}"
+                    value="{{ search.terms | escape }}"
+                    placeholder="{{ 'general.search.placeholder' | t }}">
+            
+                  <button type="submit" class="button">
+                    {% include 'icon-search' %}
+                    <span class="sr-only">{{ 'general.search.submit' | t }}</span>
+                  </button>
+                </form>
+              </div>
+          </div>
+        {% endif %}
+        {% if section.settings.header_account_enable %}
+          <div class="header-user">
+              {% if customer %}
+                  <div class="header-user-btn logged-in">
+                    <a href="/account">
+                      {% if customer.first_name != blank %}
+                          {% capture first_name %}{{ customer.first_name }}{% endcapture %}
+                          {% include 'icon-user' %}
+                          <span class="user-title">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</span>
+                      {% else %}
+                          {{ 'layout.customer.account' | t }}
+                      {% endif %}
+                    </a>
+                  </div>
+              {% else %}
+                  <div class="header-user-btn">
+                      <a href="#loginModal" data-toggle="modal" class="header-user-btn">{% include 'icon-user' %}</button>
+                  </div>
+              {% endif %}
+          </div> 
+        {% endif %}
+        {% if section.settings.header_cart_enable %}
+          <div class="header-cart">
+            {% if section.settings.advance_cart_enable %}
+                <button class="header-cart-btn">
+                    {% include 'icon-cart' %}
+                    <span class="header-cart-count">{{ cart.item_count }}</span>
+                </button>
+                {% assign cart_empty_cls = ' cart-empty' %}
+                {% capture check_cart_empty %}{% if cart.item_count == 0 %}{{ cart_empty_cls }}{% endif %}{% endcapture %}
+                <div class="header-minicart{{ check_cart_empty }}">
+                    <div class="minicart__frame">
+                        <div class="minicart__header">
+                            <div class="minicart__title">
+                                {{ 'general.minicart.title' | t }}
+                                <span class="minicart-count">{{ cart.item_count }}</span>
+                            </div>
+                            <button class="minicart__close">{% include 'icon-close' %}</button>
+                        </div>
+                        <div class="minicart__body">
+                            {% if cart.item_count > 0 %}
+                                <div class="minicart__items">
+                                    {% for item in cart.items %}
+                                        <div class="minicart-item">
+                                            {% if item.image != blank %}
+                                                <div class="minicart-item__img">
+                                                    <a href="{{ item.url | within: collections.all }}">
+                                                        {{ item | img_url: '240x240' | img_tag: item.title }}
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                            <div class="minicart-item__header">
+                                                <div class="minicart-item__name">
+                                                    <a href="{{ item.url }}">{{ item.product.title }}</a>
+
+                                                    <div class="minicart-item__price">
+                                                        {% if item.original_line_price != item.line_price %}
+                                                            <span class="visually-hidden">{{ 'cart.label.discounted_price' | t }}</span>
+                                                            {{ item.price | money }}
+                                                            <span class="visually-hidden">{{ 'cart.label.original_price' | t }}</span>
+                                                            <s>{{ item.original_price | money }}</s>
+                                                        {% else %}
+                                                            {{ item.price | money }}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="minicart-item__qty-holder">
+                                                <div class="minicart-item__qty">
+                                                    <input type="number"
+                                                        name="updates[]"
+                                                        id="updates_{{ item.key }}"
+                                                        value="{{ item.quantity }}"
+                                                        min="0"
+                                                        aria-label="{{ 'cart.general.item_quantity' | t }}">
+                                                </div>
+                                                <div class="minicart-item__remove">
+                                                    <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">{{ 'cart.general.remove' | t }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="minicart-empty">
+                                    <div class="minicart-empty__title">{{ 'general.minicart.empty_cart' | t }}</div>
+                                    <div class="minicart-empty__btn">
+                                        <a href="/collections" class="btn btn__primary">{{ 'general.minicart.shop_btn' | t }}</a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% if cart.item_count > 0 %}
+                            <div class="minicart-footer">
+                                <div class="minicart-details">
+                                    <div class="minicart-subtotal">
+                                        <span class="minicart-footer__title">{{ 'minicart.minicart_subtotal' | t }}</div>
+                                        <span class="minicart-footer__txt">{{ cart.items_subtotal_price | money }}</span>
+                                    </div>
+                                    <div class="minicart-discount">
+                                        <span class="minicart-footer__title">{{ 'minicart.minicart_discount' | t }}</div>
+                                        <span class="minicart-footer__txt">{{ cart.total_discount | money }}</span>
+                                    </div>
+                                    <div class="minicart-total">
+                                        <span class="minicart-footer__title">{{ 'minicart.minicart_total' | t }}</div>
+                                        <span class="minicart-footer__txt">{{ cart.total_price | money }}</span>
+                                    </div>
+                                </div>
+                                <div class="minicart-footer__btn">
+                                    <input type="submit" name="checkout" class="btn btn__primary" value="{{ 'cart.general.checkout' | t }}">
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% else %}
+                <a href="/cart" class="header-cart-btn">
+                    {% include 'icon-cart' %}
+                    <span class="header-cart-count">{{ cart.item_count }}</span>
+                </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <nav role="navigation" class="main-navigation">
+    <button class="close-btn menu-control-btn">
+      {% include 'icon-close' %}
+    </button>
+    <div class="container">
+      <ul class="menu-list">
+        {% for navlink in linklists[section.settings.main_menu].links %}
+          {% assign submenu_class = ' has-children' %}
+          {% capture toggleClass %}{% if navlink.links.size > 0 %}{{ submenu_class }}{% endif %}{% endcapture %}
+
+          <li class="menu-item{{ toggleClass }}{% if navlink.current %} current-menu-item{% endif %} {{ navlink.handle }}">
+            <a href="{{ navlink.url }}">
+              {{ navlink.title }}
+            </a>
+            {% if navlink.links.size > 0 %}
+              <button class="submenu-toggle">{% include 'icon-arrow-down' %}</button>
+            {% endif %}
+
+            {% if navlink.links.size > 0 %}
+              <ul class="submenu">
+                {% for childLink in navlink.links %}
+                  {% capture childToggleClass %}{% if childLink.links.size > 0 %}{{ submenu_class }}{% endif %}{% endcapture %}
+
+                  <li class="menu-item{{ childToggleClass }}{% if childLink.current %} current-menu-item{% endif %} {{ childLink.handle }}">
+                    <a href="{{ childLink.url }}">{{ childLink.title }}</a>
+                    {% if childLink.links.size > 0 %}
+                      <button class="submenu-toggle">{% include 'icon-arrow-down' %}</button>
+                    {% endif %}
+
+                    {% if childLink.links.size > 0 %}
+                      <ul class="submenu">
+                        {% for gChildLink in childLink.links %}
+                          
+                          <li class="menu-item{% if gChildLink.current %} current-menu-item{% endif %} {{ gChildLink.handle }}">
+                            <a href="{{ gChildLink.url }}">{{ gChildLink.title }}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+      <nav class="top-menu d-md-none">
+        <ul class="menu-list">
+          {% for link in linklists[section.settings.top_menu].links %}
+            {% assign active_class = ' current-menu-item' %}
+            {% capture activeClass %}{% if link.active %}{{ active_class }}{% endif %}{% endcapture %}
+            <li class="menu-item{{ activeClass }}">
+              <a href="{{ link.url }}">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+      {% if section.settings.header_social_enable %}
+        <div class="h-top__right d-md-none">
+          {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+          <ul class="h-top__social">
+            {% for social in social_accounts %}
+              {%- assign social_handle = social | handleize -%}
+              {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+              {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+
+              {% if settings[social_link] != blank %}
+                <li>
+                  <a href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                    {% include social_icon %}
+                  </a>
+                </li>
+              {% endif %}
+
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </nav>
+</header>
+
+<!-- Login modal -->
+<div class="modal fade login-modal" id="loginModal" tabindex="-1" role="dialog" aria-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-content-inner d-md-flex justify-content-md-center flex-md-column">
+        <div class="modal-inner-frame">
+          <a href="javascript:void(0)" data-dismiss="modal" class="modal-close" title="Modal Close">
+            {%- include 'icon-close' -%}
+          </a>
+          <strong class="modal-title text-center d-block">{{ 'general.login_pop.title' | t }}</strong>
+          <div class="modal-subheading text-center d-block">
+            {{ 'general.login_pop.create_acc_title' | t -}}
+            <a href="javascript:void(0)" class="link link_signup_modal">
+              {{- 'general.login_pop.create_acc_btn' | t -}}
+            </a>
+          </div>
+          <div class="form-holder">
+            <form id="login-form" method="post">
+              <input type="hidden" name="form_type" value="customer_login">
+              <input type="hidden" name="utf8" value="✓">
+              <div class="form-group floating_input_wrap">
+                <label for="CustomerEmail" class="sr-only">
+                  {{ 'customer.login.email' | t }}
+                </label>
+                <input
+                  type="email"
+                  name="customer[email]"
+                  id="CustomerEmail"
+                  class="form-control"
+                  placeholder="{{ 'customer.login.email' | t }}"
+                  spellcheck="false"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  autofocus
+                >
+              </div>
+              <div class="form-group floating_input_wrap">
+                  <label for="CustomerPassword" class="sr-only">
+                    {{ 'customer.login.password' | t }}
+                  </label>
+                  <input
+                    type="password"
+                    name="customer[password]"
+                    id="CustomerPassword"
+                    class="form-control"
+                    placeholder="{{ 'customer.login.password' | t }}"
+                  >
+                  <a href="/account/reset-password" class="link-forgot-pass">
+                    {{- 'customer.login.forgot_password' | t -}}
+                  </a>
+              </div>
+
+              <button class="btn btn-login" type="submit">{{ 'customer.login.sign_in' | t }}</button>
+
+              <div class="form-msg"></div>
+
+              <div class="social-login d-flex flex-column">
+                <strong class="form-title text-center font-weight-bold d-block">
+                  {{- 'general.login_pop.social_login' | t -}}
+                </strong>
+                <a
+                  href="#"
+                  class="btn-google d-flex align-items-center justify-content-center toll_tip_btn_conect login_google google_login_btn "
+                >
+                  {% include 'icon-google' %}
+                  <span>Google</span>
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% if section.settings.enable_login_pop_img and section.settings.login_pop_img %}
+        {% assign login_img = section.settings.login_pop_img %}
+        <div class="popup-banner d-none d-md-flex flex-direction-column">
+          <img src="{{ login_img | img_url: '360x' }}" alt="login image" />
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- Register modal -->
+<div
+  class="modal fade register-modal" id="registerModal" tabindex="-1" role="dialog" style="">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-content-inner d-md-flex justify-content-md-center flex-md-column">
+        <div class="modal-inner-frame">
+          <a href="javascript:void(0)" data-dismiss="modal" class="modal-close" title="Modal Close"
+            >{% include 'icon-close' %}</a>
+          <strong class="modal-title text-center d-block">{{ 'general.register_pop.title' | t }}</strong>
+          <div class="modal-subheading text-center d-block">
+            {{ 'general.register_pop.login_acc_title' | t }}<a href="javascript:void(0)" class="link link_login_modal">{{ 'general.register_pop.login_acc_btn' | t }}</a>
+          </div>
+          <div class="form-holder">
+            <form id="register-form" method="post" action="/account">
+              <input type="hidden" name="form_type" value="create_customer">
+              <input type="hidden" name="utf8" value="✓">
+              <div class="form-row">
+                <div class="form-group floating_input_wrap">
+                  <label for="FirstName" class="sr-only">
+                    {{ 'customer.register.first_name' | t }}
+                  </label>
+                  <input type="text"
+                    name="customer[first_name]"
+                    id="FirstName" class="form-control"
+                    placeholder="{{ 'customer.register.first_name' | t }}"
+                    autofocus
+                  value="">
+                </div>
+                <div class="form-group floating_input_wrap">
+                  <label for="LastName" class="sr-only">
+                    {{ 'customer.register.last_name' | t }}
+                  </label>
+                  <input type="text"
+                    name="customer[last_name]"
+                    id="LastName" class="form-control"
+                    placeholder="{{ 'customer.register.last_name' | t }}" value=""
+                  >
+                </div>
+              </div>
+              <div class="form-group floating_input_wrap">
+                <label for="Email" class="sr-only">
+                  {{ 'customer.register.email' | t }}
+                </label>
+                <input type="email"
+                  name="customer[email]"
+                  id="Email"
+                  class="form-control"
+                  placeholder="{{ 'customer.register.email' | t }}"
+                  value=""
+                  spellcheck="false"
+                  autocomplete="off"
+                  autocapitalize="off">
+              </div>
+              
+              <div class="form-group floating_input_wrap">
+                <label for="CreatePassword" class="sr-only">
+                  {{ 'customer.register.password' | t }}
+                </label>
+                <input type="password"
+                  name="customer[password]"
+                  id="CreatePassword"
+                  class="form-control"
+                  placeholder="{{ 'customer.register.password' | t }}">
+              </div>
+              
+              <div class="form-group custom-checkbox">
+                <label for="email-subscribe">
+                  <input type="checkbox" name="customer[accepts_marketing]" value="true" id="email-subscribe" checked>
+                  <span class="fake-input"></span>
+                  <span class="checkbox-label">{{ 'customer.register.accepts_marketing' | t }}</span>
+                </label>
+              </div>
+            
+              <button type="submit" class="btn">{{ 'customer.register.submit' | t }}</button>
+
+              <div class="form-msg"></div>
+
+              <div class="social-login d-flex flex-column">
+                <strong class="form-title text-center font-weight-bold d-block">{{ 'general.register_pop.social_register' | t }}</strong>
+                <a
+                  href="#"
+                  class="btn-google d-flex align-items-center justify-content-center toll_tip_btn_conect login_google google_login_btn "
+                >
+                  {% include 'icon-google' %}
+                  <span>Google</span>
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% if section.settings.enable_register_pop_img and section.settings.register_pop_img %}
+        <div class="popup-banner d-none d-md-flex flex-direction-column">
+          {% assign register_img = section.settings.register_pop_img %}
+          <img src="{{ register_img | img_url: '360x' }}"alt="register image" />
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if section.settings.logo != blank %}
+  <style>
+    .logo-image img {
+      max-width: {{ section.settings.logo_max_width | divided_by: 16 }}rem;
+    }
+  </style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_header_enable",
+        "label": "Enable sticky header",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "header_social_enable",
+        "label": "Enable social icons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "header_search_enable",
+        "label": "Enable search icons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "header_account_enable",
+        "label": "Enable header account",
+        "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "header_cart_enable",
+            "label": "Enable header cart",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "advance_cart_enable",
+            "label": "Enable side minicart",
+            "default": false
+        },
+      {
+        "type": "link_list",
+        "id": "top_menu",
+        "label": "Top Menu"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "min": 50,
+        "max": 450,
+        "step": 10,
+        "unit": "px",
+        "label": "Custom logo width",
+        "default": 250
+      },
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "Menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_login_pop_img",
+        "label": "Enable login modal image",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "login_pop_img",
+        "label": "Select image for Login modal"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_register_pop_img",
+        "label": "Enable register modal image",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "register_pop_img",
+        "label": "Select image for register modal"
+      }
+    ]
+  }
+{% endschema %}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "{{ shop.name }}",
+  {% if section.settings.logo %}
+    {% assign image_size = section.settings.logo.width | append:'x' %}
+    "logo": "https:{{ section.settings.logo | img_url: image_size }}",
+  {% endif %}
+  "sameAs": [
+    "{{ settings.social_twitter_link }}",
+    "{{ settings.social_facebook_link }}",
+    "{{ settings.social_pinterest_link }}",
+    "{{ settings.social_instagram_link }}",
+    "{{ settings.social_tumblr_link }}",
+    "{{ settings.social_snapchat_link }}",
+    "{{ settings.social_youtube_link }}",
+    "{{ settings.social_vimeo_link }}"
+  ],
+  "url": "{{ shop.url }}{{ page.url }}"
+}
+</script>
+
+{% if template.name == 'index' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": "{{ shop.name }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ shop.url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "url": "{{ shop.url }}{{ page.url }}"
+    }
+  </script>
+{% endif %}

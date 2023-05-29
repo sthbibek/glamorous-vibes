@@ -1,0 +1,227 @@
+{
+  "current": {
+    "favicon": "shopify:\/\/shop_images\/matat-logo-new.png",
+    "share_image": "shopify:\/\/shop_images\/a-woman-immersed-in-her-laptop-and-monitor.jpg",
+    "social_twitter_link": "#",
+    "social_facebook_link": "#",
+    "social_pinterest_link": "#",
+    "social_instagram_link": "#",
+    "social_snapchat_link": "#",
+    "social_tumblr_link": "#",
+    "social_youtube_link": "#",
+    "social_vimeo_link": "#",
+    "sections": {
+      "collection-list": {
+        "type": "collection-list",
+        "blocks": {
+          "collection-list-0": {
+            "type": "collection",
+            "settings": {
+              "collection": ""
+            }
+          },
+          "collection-list-1": {
+            "type": "collection",
+            "settings": {
+              "collection": ""
+            }
+          },
+          "collection-list-2": {
+            "type": "collection",
+            "settings": {
+              "collection": ""
+            }
+          }
+        },
+        "block_order": [
+          "collection-list-0",
+          "collection-list-1",
+          "collection-list-2"
+        ],
+        "settings": {
+          "title": "Collection list"
+        }
+      },
+      "featured-collection": {
+        "type": "featured-collection",
+        "settings": {
+          "title": "Featured collection",
+          "collection": "frontpage"
+        }
+      },
+      "featured-product": {
+        "type": "featured-product",
+        "settings": {
+          "product": "",
+          "show_share_buttons": false
+        }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "ef0bb867-0ee0-40df-a04e-8651064fe8b2": {
+            "type": "slide",
+            "settings": {
+              "announcement_bar_text": "Just another test offer",
+              "announcement_bar_link": "#"
+            }
+          },
+          "0abd28e7-c006-4b2e-9374-72bd663c1608": {
+            "type": "slide",
+            "settings": {
+              "announcement_bar_text": "Get 10% off on all our products.",
+              "announcement_bar_link": "shopify:\/\/collections"
+            }
+          }
+        },
+        "block_order": [
+          "ef0bb867-0ee0-40df-a04e-8651064fe8b2",
+          "0abd28e7-c006-4b2e-9374-72bd663c1608"
+        ],
+        "settings": {
+          "announcement_bar_enabled": true
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "sticky_header_enable": true,
+          "header_social_enable": true,
+          "header_search_enable": true,
+          "header_account_enable": true,
+          "header_cart_enable": true,
+          "advance_cart_enable": false,
+          "top_menu": "top-menu",
+          "logo": "shopify:\/\/shop_images\/vibez-logo.png",
+          "logo_max_width": 140,
+          "main_menu": "main-menu",
+          "enable_login_pop_img": true,
+          "login_pop_img": "shopify:\/\/shop_images\/login-pop-img.jpg",
+          "enable_register_pop_img": true,
+          "register_pop_img": "shopify:\/\/shop_images\/register_img.jpg"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_linklist": "footer",
+          "show_payment_icons": false
+        }
+      },
+      "9cdfb51a-d8ee-4326-a617-867d801ee8da": {
+        "type": "image-slider",
+        "blocks": {
+          "79fd03d0-9a72-49c0-876d-327e79100232": {
+            "type": "slide",
+            "settings": {
+              "desktop_banner": "shopify:\/\/shop_images\/banner-img.jpg",
+              "mobile_banner": "shopify:\/\/shop_images\/login-pop-img.jpg",
+              "banner_txt_alignment": "left_align",
+              "banner_subtitle": "Slider sub heading",
+              "banner_maintitle": "Dummy banner slider heading",
+              "banner_desc": "This is a dummy content for the banner slider.",
+              "slider_txt_color": "#ffffff",
+              "first_btn_txt": "Buy Now",
+              "first_btn_url": "#",
+              "first_btn_bg": "#303c43",
+              "first_btn_color": "#ffffff",
+              "second_btn_txt": "Learn more",
+              "second_btn_url": "#",
+              "second_btn_bg": "rgba(0,0,0,0)",
+              "second_btn_color": "#ffffff"
+            }
+          },
+          "7e659140-e12c-4ca9-8541-98bb3fe49078": {
+            "type": "slide",
+            "settings": {
+              "desktop_banner": "shopify:\/\/shop_images\/a-person-talking-to-their-laptop-screen.jpg",
+              "mobile_banner": "shopify:\/\/shop_images\/EFI_4978.png",
+              "banner_txt_alignment": "center_align",
+              "banner_subtitle": "Slider sub heading",
+              "banner_maintitle": "Second banner slider heading",
+              "banner_desc": "This is a dummy content for the banner slider.",
+              "slider_txt_color": "#ffffff",
+              "first_btn_txt": "Buy Now",
+              "first_btn_url": "#",
+              "first_btn_bg": "#303c43",
+              "first_btn_color": "#ffffff",
+              "second_btn_txt": "Learn more",
+              "second_btn_url": "#",
+              "second_btn_bg": "#f66726",
+              "second_btn_color": "#ffffff"
+            }
+          }
+        },
+        "block_order": [
+          "79fd03d0-9a72-49c0-876d-327e79100232",
+          "7e659140-e12c-4ca9-8541-98bb3fe49078"
+        ],
+        "settings": {
+          "banner_layout": "box_banner",
+          "overlay_bg": "#000000",
+          "overlay_opacity": 50,
+          "slider_autoplay": false,
+          "slider_autoplay_speed": 3000,
+          "slider_loop": true,
+          "slider_speed": 1200,
+          "show_slider_controls": "enable_both"
+        }
+      }
+    },
+    "content_for_index": [
+      "9cdfb51a-d8ee-4326-a617-867d801ee8da",
+      "collection-list",
+      "featured-collection",
+      "featured-product"
+    ]
+  },
+  "presets": {
+    "Default": {
+      "sections": {
+        "collection-list": {
+          "type": "collection-list",
+          "blocks": {
+            "collection-list-0": {
+              "type": "collection",
+              "settings": {
+              }
+            },
+            "collection-list-1": {
+              "type": "collection",
+              "settings": {
+              }
+            },
+            "collection-list-2": {
+              "type": "collection",
+              "settings": {
+              }
+            }
+          },
+          "block_order": [
+            "collection-list-0",
+            "collection-list-1",
+            "collection-list-2"
+          ],
+          "settings": {
+          }
+        },
+        "featured-collection": {
+          "type": "featured-collection",
+          "settings": {
+            "collection": "frontpage"
+          }
+        },
+        "featured-product": {
+          "type": "featured-product",
+          "settings": {
+          }
+        }
+      },
+      "content_for_index": [
+        "collection-list",
+        "featured-collection",
+        "featured-product"
+      ]
+    }
+  }
+}
