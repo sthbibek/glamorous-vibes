@@ -1,4 +1,12 @@
 .image-banner {
+
+    > .container {
+        .ib-slider-holder {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+    }
+    
     .ib-slider-holder {
         position: relative;
 
@@ -34,30 +42,179 @@
             }
         }
 
+        .ib-slider-subtitle {
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .ib-slider-title {
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.3;
+            font-size: clamp(#{rem-calc(15px)}, 4vw, 50px);
+        }
+
+        .ib-slider-desc {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .btn-holder {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
         .btn {
+            min-width: 150px;
+            min-height: 45px;
+            padding: 10px 15px;
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            letter-spacing: 0.5px;
             text-decoration: none;
+            position: relative;
+
+            &.btn-primary {
+                background-color: var(--first-btn-bg-color);
+                border-color: var(--first-btn-bg-color);
+                color: var(--first-btn-txt-color);
+                overflow: hidden;
+                z-index: 9;
+
+                &:after {
+                    content: "";
+                    background: $black;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    opacity: 0;
+                    visibility: hidden;
+                    z-index: -9;
+                }
+
+                &:hover {
+                    &::after {
+                        opacity: 0.15;
+                        visibility: visible;
+                    }
+                }
+            }
+
+            &.btn-link {
+                color: var(--second-btn-txt-color);
+            }
+
+            span {
+                overflow: hidden;
+                margin-left: 7px;
+            }
+
+            svg {
+                font-size: 12px;
+                position: relative;
+                top: 1px;
+            }
+
+            &:hover {
+                svg {
+                    animation: text-button-arrow .35s linear forwards 1;
+                }
+            }
         }
 
         .slick-arrow {
             position: absolute;
             top: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba($white, 0.25);
             border: none;
             padding: 0;
             width: 40px;
             height: 40px;
             border-radius: 100%;
             font-size: 16px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            box-shadow: 0 0 5px rgba($black, 0.1);
+            outline: none;
             transform: translateY(-50%);
+            z-index: 9;
 
             &.slick-prev {
-                left: 0;
+                left: 3%;
             }
 
             &.slick-next {
-                right: 0;
+                right: 3%;
+            }
+        }
+
+        .slick-dots {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: absolute;
+            bottom: 3%;
+            left: 0;
+            right: 0;
+            text-align: center;
+
+            li {
+                display: inline-block;
+                cursor: pointer;
+                line-height: 1;
+
+                button {
+                    background: $white;
+                    border: none;
+                    border-radius: 20px;
+                    font-size: 0;
+                    padding: 0;
+                    width: 10px;
+                    height: 10px;
+                    margin: 5px;
+                    outline: none;
+                    transition: width ease 0.3s;
+                }
+
+                &.slick-active {
+                    button {
+                        background: $primary;
+                        width: 25px;
+                    }
+                }
+
+                &:hover {
+                    button {
+                        background: $primary;
+                    }
+                }
             }
         }
     }
 }
+
+@keyframes text-button-arrow {
+    0% {
+      transform: translateX(0%); 
+    }
+    
+      50% {
+      transform: translateX(100%); 
+    }
+    
+      51% {
+      transform: translateX(-100%); 
+    }
+    
+      100% {
+      transform: translateX(0%); 
+    } 
+}
+  

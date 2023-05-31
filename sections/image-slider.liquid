@@ -1,4 +1,9 @@
-<section class="image-banner">
+{% assign boxLayout = ' box-banner' %}
+{% assign fullwidthLayout = ' fullwidth-banner' %}
+
+{% capture banner_layout %}{% if section.settings.banner_layout == 'box_banner' %}{{ boxLayout }}{% else %}{{ fullwidthLayout }}{% endif %}{% endcapture %}
+
+<section class="image-banner{{ banner_layout }}">
   {% if section.settings.banner_layout == 'box_banner' %}
     <div class="container">
   {% endif %}
@@ -66,7 +71,7 @@
                     <a
                       href="{{ block.settings.first_btn_url }}"
                       class="btn btn-primary"
-                      style="background-color: {{ block.settings.first_btn_bg }}; color: {{ block.settings.first_btn_color }}"
+                      style="--first-btn-bg-color: {{ block.settings.first_btn_bg }}; --first-btn-txt-color: {{ block.settings.first_btn_color }}"
                     >
                       {{- block.settings.first_btn_txt -}}
                     </a>
@@ -75,10 +80,10 @@
                     <a
                       href="{{ block.settings.second_btn_url }}"
                       class="btn btn-link"
-                      style="background-color: {{ block.settings.second_btn_bg }}; color: {{ block.settings.second_btn_color }}"
+                      style="--second-btn-txt-color: {{ block.settings.second_btn_color }}"
                     >
                       {{- block.settings.second_btn_txt }}
-                      {% include 'icon-arrow-right' -%}
+                      <span>{% include 'icon-arrow-right' -%}</span>
                     </a>
                   {% endif %}
                 </div>
@@ -269,12 +274,6 @@
           "type": "url",
           "id": "second_btn_url",
           "label": "Second button link"
-        },
-        {
-          "type": "color",
-          "id": "second_btn_bg",
-          "label": "Button background",
-          "default": "#f66726"
         },
         {
           "type": "color",

@@ -1,5 +1,7 @@
 // const { escape } = require("grunt");
 
+// const { escape } = require("grunt");
+
 jQuery(function () {
     initStickyScrollBlock();
     initSlickCarousel();
@@ -127,6 +129,7 @@ function initCustomScript() {
         var lastName = self.find('.form-group input[name="customer[last_name]"]').val();
         var email = self.find('.form-group input[name="customer[email]"]').val();
         var password = self.find('.form-group input[name="customer[password]"]').val();
+        var accepts_marketing = self.find('.form-group input[name="customer[accepts_marketing]"]').val();
 
         jQuery(self.find('.form-group input:not([name="customer[first_name]"]):not([name="customer[last_name]"])')).each(function () {
             if (jQuery(this).val() == '') {
@@ -139,7 +142,8 @@ function initCustomScript() {
             firstName: escape(firstName),
             lastName: escape(lastName),
             email: escape(email),
-            password: escape(password).replace(/\+/g, '%2B')
+            password: escape(password).replace(/\+/g, '%2B'),
+            accepts_marketing: escape(accepts_marketing)
         }
         var data = 'form_type=create_customer&utf8=%E2%9C%93&customer%5Bfirst_name%5D=';
         data += escapedData.firstName;
@@ -149,6 +153,8 @@ function initCustomScript() {
         data += escapedData.email;
         data += '&customer%5Bpassword%5D=';
         data += escapedData.password;
+        data += '&customer%5Baccepts_marketing%5D=';
+        data += escapedData.accepts_marketing;
         jQuery.post('/account', data).done(function (response, status) {
             self.removeClass('submitting');
 
