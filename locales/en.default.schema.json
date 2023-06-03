@@ -1,0 +1,37 @@
+{
+    "image_slider": {
+        "main_settings": {
+            "image_slider_title": "Image Slider",
+            "banner_layout": "Banner layout",
+            "overlay_bg": "Overlay Background",
+            "overlay_opacity": "Overlay opacity",
+            "slider_autoplay": "Enable slider autoplay",
+            "slider_autoplay_speed": "Autoplay speed (in milliseconds)",
+            "slider_loop": "Enable slider loop",
+            "slider_speed": "Slider speed (in milliseconds)",
+            "slider_controls": "Show slider controls"
+        },
+        "block_settings": {
+            "block_title": "Slide",
+            "desktop_banner": "Desktop banner",
+            "mobile_banner": "Mobile banner",
+            "slider_txt_alignment": "Text alignment",
+            "slider_subtitle_label": "Slider subtitle",
+            "slider_subtitle_default_txt": "Slider sub heading",
+            "slider_main_title_label": "Slider title",
+            "slider_main_title_default_txt": "Dummy banner slider heading",
+            "slider_desc_label": "Slider content",
+            "slider_desc_default_txt": "This is a dummy content for the banner slider.",
+            "slider_txt_color": "Slider text color",
+            "slider_first_btn_label": "First button label",
+            "slider_first_btn_default_txt": "Buy Now",
+            "slider_first_btn_url": "First button link",
+            "slider_first_btn_bg": "Button background",
+            "slider_first_btn_txt_color": "Button text color",
+            "slider_second_btn_label": "Second button label",
+            "slider_second_btn_default_txt": "Learn more",
+            "slider_second_btn_url": "Second button link",
+            "slider_second_btn_txt_color": "Button text color"
+        }
+    }
+}

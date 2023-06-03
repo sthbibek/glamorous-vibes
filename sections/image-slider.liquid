@@ -28,7 +28,7 @@
             <source srcset="{{ block.settings.desktop_banner | image_url }}">
             <!--[if IE 9]> </video> <![endif]-->
             <img
-              src="{{ block.settings.desktop_banner | img_url: '1280x' }}"
+              src="{{ block.settings.desktop_banner | img_url: '1280x550', crop:'center' }}"
               width="1280px"
               height="550px"
               alt="banner image"
@@ -104,12 +104,12 @@
 
 {% schema %}
 {
-  "name": "Image Slider",
+  "name": "t:image_slider.main_settings.image_slider_title",
   "settings": [
     {
       "type": "radio",
       "id": "banner_layout",
-      "label": "Banner layout",
+      "label": "t:image_slider.main_settings.banner_layout",
       "options": [
         {
           "value": "box_banner",
@@ -125,7 +125,7 @@
     {
       "type": "color",
       "id": "overlay_bg",
-      "label": "Overlay Background",
+      "label": "t:image_slider.main_settings.overlay_bg",
       "default": "#000000"
     },
     {
@@ -135,37 +135,37 @@
       "max": 100,
       "step": 5,
       "unit": "%",
-      "label": "Overlay opacity",
+      "label": "t:image_slider.main_settings.overlay_opacity",
       "default": 50
     },
     {
       "type": "checkbox",
       "id": "slider_autoplay",
-      "label": "Enable slider autoplay",
+      "label": "t:image_slider.main_settings.slider_autoplay",
       "default": true
     },
     {
       "type": "number",
       "id": "slider_autoplay_speed",
-      "label": "Autoplay speed (in milliseconds)",
+      "label": "t:image_slider.main_settings.slider_autoplay_speed",
       "default": 3000
     },
     {
       "type": "checkbox",
       "id": "slider_loop",
-      "label": "Enable slider loop",
+      "label": "t:image_slider.main_settings.slider_loop",
       "default": true
     },
     {
       "type": "number",
       "id": "slider_speed",
-      "label": "Slider speed (in milliseconds)",
+      "label": "t:image_slider.main_settings.slider_speed",
       "default": 1200
     },
     {
       "type": "select",
       "id": "show_slider_controls",
-      "label": "Show slider controls",
+      "label": "t:image_slider.main_settings.slider_controls",
       "options": [
         {
           "value": "enable_arrows",
@@ -185,22 +185,22 @@
   "blocks": [
     {
       "type": "slide",
-      "name": "Slide",
+      "name": "t:image_slider.block_settings.block_title",
       "settings": [
         {
           "type": "image_picker",
           "id": "desktop_banner",
-          "label": "Desktop banner"
+          "label": "t:image_slider.block_settings.desktop_banner"
         },
         {
           "type": "image_picker",
           "id": "mobile_banner",
-          "label": "Mobile banner"
+          "label": "t:image_slider.block_settings.mobile_banner"
         },
         {
           "type": "select",
           "id": "banner_txt_alignment",
-          "label": "Text alignment",
+          "label": "t:image_slider.block_settings.slider_txt_alignment",
           "options": [
             {
               "value": "left_align",
@@ -220,65 +220,65 @@
         {
           "type": "text",
           "id": "banner_subtitle",
-          "label": "Slider subtitle",
-          "default": "Slider sub heading"
+          "label": "t:image_slider.block_settings.slider_subtitle_label",
+          "default": "t:image_slider.block_settings.slider_subtitle_default_txt"
         },
         {
           "type": "text",
           "id": "banner_maintitle",
-          "label": "Slider title",
-          "default": "Dummy banner slider heading"
+          "label": "t:image_slider.block_settings.slider_main_title_label",
+          "default": "t:image_slider.block_settings.slider_main_title_default_txt"
         },
         {
           "type": "textarea",
           "id": "banner_desc",
-          "label": "Slider content",
-          "default": "This is a dummy content for the banner slider."
+          "label": "t:image_slider.block_settings.slider_desc_label",
+          "default": "t:image_slider.block_settings.slider_desc_default_txt"
         },
         {
           "type": "color",
           "id": "slider_txt_color",
-          "label": "Slider text color",
+          "label": "t:image_slider.block_settings.slider_txt_color",
           "default": "#ffffff"
         },
         {
           "type": "text",
           "id": "first_btn_txt",
-          "label": "First button label",
-          "default": "Buy Now"
+          "label": "t:image_slider.block_settings.slider_first_btn_label",
+          "default": "t:image_slider.block_settings.slider_first_btn_default_txt"
         },
         {
           "type": "url",
           "id": "first_btn_url",
-          "label": "First button link"
+          "label": "t:image_slider.block_settings.slider_first_btn_url"
         },
         {
           "type": "color",
           "id": "first_btn_bg",
-          "label": "Button background",
+          "label": "t:image_slider.block_settings.slider_first_btn_bg",
           "default": "#303c43"
         },
         {
           "type": "color",
           "id": "first_btn_color",
-          "label": "Button text color",
+          "label": "t:image_slider.block_settings.slider_first_btn_txt_color",
           "default": "#ffffff"
         },
         {
           "type": "text",
           "id": "second_btn_txt",
-          "label": "Second button label",
-          "default": "Learn more"
+          "label": "t:image_slider.block_settings.slider_second_btn_label",
+          "default": "t:image_slider.block_settings.slider_second_btn_default_txt"
         },
         {
           "type": "url",
           "id": "second_btn_url",
-          "label": "Second button link"
+          "label": "t:image_slider.block_settings.slider_second_btn_url"
         },
         {
           "type": "color",
           "id": "second_btn_color",
-          "label": "Button text color",
+          "label": "t:image_slider.block_settings.slider_second_btn_txt_color",
           "default": "#ffffff"
         }
       ]
@@ -286,8 +286,8 @@
   ],
   "presets": [
     {
-      "name": "Image Slider",
-      "category": "Slider",
+      "name": "t:image_slider.main_settings.image_slider_title",
+      "category": "t:image_slider.block_settings.block_title",
       "blocks": [
         {
           "type": "slide"

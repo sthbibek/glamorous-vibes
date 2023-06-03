@@ -1,0 +1,115 @@
+<section class="promo-section">
+    <div class="container">
+        <div class="section-grid">
+            <div class="section-block">
+                <figure class="section-block-img">
+                    <img src="" alt="" />
+                </figure>
+                <div class="section-block-content">
+                    <h3 class="section-block-title">Up to 50% off on smart speakers</h3>
+                    <div clas="btn-holder">
+                        <a href="#" class="btn btn-link">
+                            Shop now 
+                            <span>{% include 'icon-arrow-right' %}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Promotional Section",
+    "settings": [
+        {
+            "type": "number",
+            "id": "promo_margin_top",
+            "label": "Margin top",
+            "default": 60
+        },
+        {
+            "type": "number",
+            "id": "promo_margin_bottom",
+            "label": "Margin bottom",
+            "default": 60
+        },
+        {
+            "type": "color",
+            "id": "promo_section_bg",
+            "default": "transparent"
+        },
+        {
+            "type": "checkbox",
+            "id": "promo_image_as_bg",
+            "label": "Use promo image as a background",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "link_on_whole_block",
+            "label": "Apply the link to whole block"
+        },
+        {
+            "type": "select",
+            "id": "promo_txt_alignment",
+            "label": "Text alignment",
+            "options": [
+                {
+                    "value": "left_align",
+                    "label": "Left"
+                },
+                {
+                    "value": "center_align",
+                    "label": "Center"
+                },
+                {
+                    "value": "right_align",
+                    "label": "Right"
+                }
+            ],
+            "default": "left_align"
+        },
+    ],
+    "blocks": [
+        {
+            "type": "slide",
+            "name": "Slide",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "promo_image",
+                    "label": "Promo block image"
+                },
+                {
+                    "type": "text",
+                    "id": "promo_heading",
+                    "label": "Promotional heading"
+                },
+                {
+                    "type": "text",
+                    "id": "promo_btn_txt",
+                    "label": "Promotional button label"
+                },
+                {
+                    "type": "url",
+                    "id": "promo_link",
+                    "label": "Promotional link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Promotional Section",
+            "category": "Slide",
+            "blocks": [
+                {
+                    "type": "slide"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -127,7 +127,6 @@
               "first_btn_color": "#ffffff",
               "second_btn_txt": "Learn more",
               "second_btn_url": "#",
-              "second_btn_bg": "rgba(0,0,0,0)",
               "second_btn_color": "#ffffff"
             }
           },
@@ -147,14 +146,33 @@
               "first_btn_color": "#ffffff",
               "second_btn_txt": "Learn more",
               "second_btn_url": "#",
-              "second_btn_bg": "#f66726",
               "second_btn_color": "#ffffff"
+            }
+          },
+          "804d9323-832d-46d8-9cb7-cc7e64023a61": {
+            "type": "slide",
+            "settings": {
+              "desktop_banner": "shopify:\/\/shop_images\/a-woman-immersed-in-her-laptop-and-monitor.jpg",
+              "mobile_banner": "shopify:\/\/shop_images\/woman-in-the-city_925x_4d0bd7a9-b0a6-4077-ab9d-c1955fdc58f6.jpg",
+              "banner_txt_alignment": "right_align",
+              "banner_subtitle": "Third slide sub heading",
+              "banner_maintitle": "Just another heading for third slide",
+              "banner_desc": "This is a dummy content for the banner slider. This is a dummy content for the banner slider.",
+              "slider_txt_color": "#ffffff",
+              "first_btn_txt": "Buy Now",
+              "first_btn_url": "#",
+              "first_btn_bg": "#3daffb",
+              "first_btn_color": "#fff",
+              "second_btn_txt": "Learn more",
+              "second_btn_url": "#",
+              "second_btn_color": "#3daffb"
             }
           }
         },
         "block_order": [
           "79fd03d0-9a72-49c0-876d-327e79100232",
-          "7e659140-e12c-4ca9-8541-98bb3fe49078"
+          "7e659140-e12c-4ca9-8541-98bb3fe49078",
+          "804d9323-832d-46d8-9cb7-cc7e64023a61"
         ],
         "settings": {
           "banner_layout": "box_banner",

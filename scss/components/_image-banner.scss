@@ -10,6 +10,74 @@
     .ib-slider-holder {
         position: relative;
 
+        .left_align {
+            .ib-slider-content-inner {
+                text-align: left;
+            }
+
+            .btn-holder {
+                justify-content: flex-start;
+            }
+        }
+
+        .center_align {
+            .ib-slider-content-inner {
+                text-align: center;
+            }
+
+            .btn-holder {
+                justify-content: center;
+            }
+        }
+        
+        .right_align {
+            .ib-slider-content-inner {
+                text-align: right;
+            }
+
+            .btn-holder {
+                justify-content: flex-end;
+            }
+        }
+
+        &:not(.slick-initialized) {
+            .ib-slider {
+                &:first-child {
+                    ~ .ib-slider {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .slick-track {
+            display: flex;
+
+            .ib-slider {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                height: auto;
+            }
+
+            .ib-slider-img {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                picture {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                }
+
+                img {
+                    flex: 1;
+                    object-fit: cover;
+                }
+            }
+        }
+
         .ib-slider {
             position: relative;
         }
@@ -37,8 +105,13 @@
             justify-content: center;
             z-index: 9;
 
+            > .container {
+                padding-top: 5%;
+                padding-bottom: 5%;
+            }
+
             > .ib-slider-content-inner {
-                padding: 5%;
+                padding: 5% 10%;
             }
         }
 
@@ -69,65 +142,15 @@
         }
 
         .btn {
-            min-width: 150px;
-            min-height: 45px;
-            padding: 10px 15px;
-            display: inline-flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-            text-decoration: none;
-            position: relative;
 
             &.btn-primary {
                 background-color: var(--first-btn-bg-color);
                 border-color: var(--first-btn-bg-color);
                 color: var(--first-btn-txt-color);
-                overflow: hidden;
-                z-index: 9;
-
-                &:after {
-                    content: "";
-                    background: $black;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    opacity: 0;
-                    visibility: hidden;
-                    z-index: -9;
-                }
-
-                &:hover {
-                    &::after {
-                        opacity: 0.15;
-                        visibility: visible;
-                    }
-                }
             }
 
             &.btn-link {
                 color: var(--second-btn-txt-color);
-            }
-
-            span {
-                overflow: hidden;
-                margin-left: 7px;
-            }
-
-            svg {
-                font-size: 12px;
-                position: relative;
-                top: 1px;
-            }
-
-            &:hover {
-                svg {
-                    animation: text-button-arrow .35s linear forwards 1;
-                }
             }
         }
 
@@ -145,6 +168,7 @@
             outline: none;
             transform: translateY(-50%);
             z-index: 9;
+            
 
             &.slick-prev {
                 left: 3%;
@@ -152,6 +176,14 @@
 
             &.slick-next {
                 right: 3%;
+            }
+
+            &:hover {
+                background: rgba($white, 0.5);
+            }
+
+            &:focus {
+                outline: none;
             }
         }
 
@@ -198,23 +230,5 @@
             }
         }
     }
-}
-
-@keyframes text-button-arrow {
-    0% {
-      transform: translateX(0%); 
-    }
-    
-      50% {
-      transform: translateX(100%); 
-    }
-    
-      51% {
-      transform: translateX(-100%); 
-    }
-    
-      100% {
-      transform: translateX(0%); 
-    } 
 }
   
