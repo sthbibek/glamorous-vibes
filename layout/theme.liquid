@@ -1,5 +1,8 @@
 <!doctype html>
-<html class="no-js supports-no-cookies" lang="{{ shop.locale }}">
+  {% assign rtlDir = 'rtl' %}
+  {% assign ltlDir = 'ltr' %}
+  {% capture langDir %}{% if shop.locale == 'ar' or shop.locale == 'he' or shop.locale == 'fa' or shop.locale == 'ur' or shop.locale == 'ku' or shop.locale == 'ps' or shop.locale == 'sd' or shop.locale == 'ug' or shop.locale == 'yi' %}{{ rtlDir }} {% else %}{{ ltlDir }}{% endif %}{% endcapture %}
+<html class="no-js supports-no-cookies" lang="{{ shop.locale }}" dir="{{ langDir }}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,8 +52,9 @@
 
     {{ content_for_header }}
   </head>
-
-  <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
+  {% assign rtlClass = ' rtl' %}
+  {% capture findRtlLang %}{% if shop.locale == 'ar' or shop.locale == 'he' or shop.locale == 'fa' or shop.locale == 'ur' or shop.locale == 'ku' or shop.locale == 'ps' or shop.locale == 'sd' or shop.locale == 'ug' or shop.locale == 'yi' %}{{ rtlClass }}{% endif %}{% endcapture %}
+  <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}{{ findRtlLang }}">
     <a class="in-page-link hidden skip-link" href="#MainContent">
       {{- 'general.accessibility.skip_to_content' | t -}}
     </a>

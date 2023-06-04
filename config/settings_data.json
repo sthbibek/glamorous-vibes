@@ -162,7 +162,7 @@
               "first_btn_txt": "Buy Now",
               "first_btn_url": "#",
               "first_btn_bg": "#3daffb",
-              "first_btn_color": "#fff",
+              "first_btn_color": "#ffffff",
               "second_btn_txt": "Learn more",
               "second_btn_url": "#",
               "second_btn_color": "#3daffb"
@@ -184,10 +184,56 @@
           "slider_speed": 1200,
           "show_slider_controls": "enable_both"
         }
+      },
+      "72765d4b-f47d-4042-aa54-7ae442811031": {
+        "type": "promotional-blocks",
+        "blocks": {
+          "72765d4b-f47d-4042-aa54-7ae442811031-16858995609e7741d5-0": {
+            "type": "slide",
+            "settings": {
+              "promo_image": "shopify:\/\/shop_images\/young-female-models-denim_925x_f65261af-7346-4bf0-8dcb-5a2ca9b0f6fd.jpg",
+              "promo_heading": "Up to 50% off on jeans jackates",
+              "promo_btn_txt": "Shop Now",
+              "promo_link": "#"
+            }
+          },
+          "666d3da6-338f-46ee-bd54-58235a502a10": {
+            "type": "slide",
+            "settings": {
+              "promo_image": "shopify:\/\/shop_images\/putting-on-your-shoes_925x_e34f63cf-ef31-4470-880f-0aeadac7ab2a.jpg",
+              "promo_heading": "Use automation to save energy",
+              "promo_btn_txt": "Shop Now",
+              "promo_link": "#"
+            }
+          },
+          "d825508b-1652-40ca-ac7e-23b0c0d7c436": {
+            "type": "slide",
+            "settings": {
+              "promo_image": "shopify:\/\/shop_images\/black-bag-over-the-shoulder_925x_eb33df81-c63a-411b-939f-1d6c08e0c5f2.jpg",
+              "promo_heading": "Enjoy a greater level of home security",
+              "promo_btn_txt": "Shop Now",
+              "promo_link": "#"
+            }
+          }
+        },
+        "block_order": [
+          "72765d4b-f47d-4042-aa54-7ae442811031-16858995609e7741d5-0",
+          "666d3da6-338f-46ee-bd54-58235a502a10",
+          "d825508b-1652-40ca-ac7e-23b0c0d7c436"
+        ],
+        "settings": {
+          "promo_margin_top": 60,
+          "promo_margin_bottom": 60,
+          "promo_section_bg": "rgba(0,0,0,0)",
+          "promo_image_as_bg": false,
+          "link_on_whole_block": false,
+          "promo_txt_alignment": "left_align"
+        }
       }
     },
     "content_for_index": [
       "9cdfb51a-d8ee-4326-a617-867d801ee8da",
+      "72765d4b-f47d-4042-aa54-7ae442811031",
       "collection-list",
       "featured-collection",
       "featured-product"

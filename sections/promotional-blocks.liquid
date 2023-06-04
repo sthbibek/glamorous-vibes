@@ -1,115 +1,125 @@
-<section class="promo-section">
+<section class="promo-section {{ section.settings.promo_txt_alignment }}{% if section.settings.promo_image_as_bg %} block-img-as-bg{% endif %}{% if section.settings.link_on_whole_block %} block-full-link{% endif %}{% if section.settings.promo_section_bg == 'rgba(0,0,0,0)' or section.settings.promo_section_bg == '#fff' or section.settings.promo_section_bg == '#ffffff' %} no-bg {% else %} hs-bg{% endif %}" style="--promo-top-spacing: {{ section.settings.promo_margin_top }}px; --promo-bottom-spacing: {{ section.settings.promo_margin_bottom }}px; background-color: {{ section.settings.promo_section_bg }}">
     <div class="container">
         <div class="section-grid">
-            <div class="section-block">
-                <figure class="section-block-img">
-                    <img src="" alt="" />
-                </figure>
-                <div class="section-block-content">
-                    <h3 class="section-block-title">Up to 50% off on smart speakers</h3>
-                    <div clas="btn-holder">
-                        <a href="#" class="btn btn-link">
-                            Shop now 
-                            <span>{% include 'icon-arrow-right' %}</span>
-                        </a>
-                    </div>
+            {% for block in section.blocks %}
+                <div class="section-block">
+                    {% if block.settings.promo_image %}
+                        <figure class="section-block-img">
+                            <img src="{{ block.settings.promo_image | img_url: '600x600' }}" width="600" height="600" alt="{{ block.settings.promo_image.image.id }}">
+                        </figure>
+                    {% endif %}
+                    {% if block.settings.promo_heading or block.settings.promo_link %}
+                        <div class="section-block-content">
+                            <h3 class="section-block-title">{{ block.settings.promo_heading }}</h3>
+                            {% if block.settings.promo_link %}
+                                <div class="btn-holder">
+                                    <a href="{{ block.settings.promo_link }}" class="btn btn-link">
+                                        {{ block.settings.promo_btn_txt }}
+                                        <span>{% include 'icon-arrow-right' %}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
 
 {% schema %}
 {
-    "name": "Promotional Section",
-    "settings": [
+  "name": "Promotional Section",
+  "settings": [
+    {
+      "type": "number",
+      "id": "promo_margin_top",
+      "label": "Margin top",
+      "default": 60
+    },
+    {
+      "type": "number",
+      "id": "promo_margin_bottom",
+      "label": "Margin bottom",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "promo_section_bg",
+	  "label": "Promo section background",
+      "default": "transparent"
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_image_as_bg",
+      "label": "Use promo image as a background",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "link_on_whole_block",
+      "label": "Apply the link to whole block",
+	  "default": false
+    },
+    {
+      "type": "select",
+      "id": "promo_txt_alignment",
+      "label": "Text alignment",
+      "options": [
         {
-            "type": "number",
-            "id": "promo_margin_top",
-            "label": "Margin top",
-            "default": 60
+          "value": "left_align",
+          "label": "Left"
         },
         {
-            "type": "number",
-            "id": "promo_margin_bottom",
-            "label": "Margin bottom",
-            "default": 60
+          "value": "center_align",
+          "label": "Center"
         },
         {
-            "type": "color",
-            "id": "promo_section_bg",
-            "default": "transparent"
-        },
-        {
-            "type": "checkbox",
-            "id": "promo_image_as_bg",
-            "label": "Use promo image as a background",
-            "default": false
-        },
-        {
-            "type": "checkbox",
-            "id": "link_on_whole_block",
-            "label": "Apply the link to whole block"
-        },
-        {
-            "type": "select",
-            "id": "promo_txt_alignment",
-            "label": "Text alignment",
-            "options": [
-                {
-                    "value": "left_align",
-                    "label": "Left"
-                },
-                {
-                    "value": "center_align",
-                    "label": "Center"
-                },
-                {
-                    "value": "right_align",
-                    "label": "Right"
-                }
-            ],
-            "default": "left_align"
-        },
-    ],
-    "blocks": [
-        {
-            "type": "slide",
-            "name": "Slide",
-            "settings": [
-                {
-                    "type": "image_picker",
-                    "id": "promo_image",
-                    "label": "Promo block image"
-                },
-                {
-                    "type": "text",
-                    "id": "promo_heading",
-                    "label": "Promotional heading"
-                },
-                {
-                    "type": "text",
-                    "id": "promo_btn_txt",
-                    "label": "Promotional button label"
-                },
-                {
-                    "type": "url",
-                    "id": "promo_link",
-                    "label": "Promotional link"
-                }
-            ]
+          "value": "right_align",
+          "label": "Right"
         }
-    ],
-    "presets": [
+      ],
+      "default": "left_align"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
         {
-            "name": "Promotional Section",
-            "category": "Slide",
-            "blocks": [
-                {
-                    "type": "slide"
-                }
-            ]
+          "type": "image_picker",
+          "id": "promo_image",
+          "label": "Promo block image"
+        },
+        {
+          "type": "text",
+          "id": "promo_heading",
+          "label": "Promotional heading"
+        },
+        {
+          "type": "text",
+          "id": "promo_btn_txt",
+          "label": "Promotional button label"
+        },
+        {
+          "type": "url",
+          "id": "promo_link",
+          "label": "Promotional link"
         }
-    ]
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promotional Section",
+      "category": "Slide",
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
