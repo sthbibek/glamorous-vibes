@@ -1,0 +1,59 @@
+<section class="tab-product-section">
+    <div class="container">
+        <div class="section-header-holder">
+            <header class="section-header">
+                <h2 class="section-title">Bestsellers</h2>
+                <div class="section-desc">
+                    <p>Browse the best of our favorite sale styles and brands.</p>
+                </div>
+            </header>
+            <div class="tab-list-holder">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="tb-home" data-toggle="tab" data-target="#tb-home-content" type="button" role="tab" aria-controls="tb-home-content" aria-selected="true">Home</button>
+                    <button class="nav-link" id="tb-profile" data-toggle="tab" data-target="#tb-profile-content" type="button" role="tab" aria-controls="tb-profile-content" aria-selected="false">Profile</button>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="tb-home-content" role="tabpanel" aria-labelledby="tb-home">
+                <div class="tb-slider">
+                    {% for product in collection.products %}
+                        <div class="product-item {{ product.type }} {{ product.vendor }} {% if product.available == false %}outofstock{% endif %}{% if product.images[1] %} has_hover_image{% endif %}">
+                            <div class="product-item-inner">
+                                <figure class="product-img">
+                                    {% if product.available == false %}
+                                        <span class="badge oos_badge">Out Of Stock</span>
+                                    {% endif %}
+                                    {% if product.compare_at_price > product.price and product.available %}
+                                        <span class="badge sale_badge">Sale</span>
+                                    {% endif %}
+                                    <a href="{{ product.url }}">
+                                        <img src="{{ product.featured_image | img_url: '500x700' }}" class="normal-image" alt="{{ product.title }}">
+                                        <img src="{{ product.images[1] | img_url: '500x700' }}" class="hover-image" alt="{{ product.title }}">
+                                    </a>
+                                </figure>
+                                <div class="product-infos">
+                                    <div class="product-meta">
+                                        {% for collection in product.collections %}
+                                            <a href="{{ collection.url }}">{{ collection.title }}</a>
+                                        {% endfor %}
+                                    </div>
+                                    <h3 class="product-name">
+                                        <a href="{{ product.url }}">{{ product.title }}</a>
+                                    </h3>
+                                    <div class="product-price">
+                                        <ins>{{ product.price | money }}</ins>
+                                        {% if product.compare_at_price %}
+                                            <del>{{ product.compare_at_price | money }}</del>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tb-profile-content" role="tabpanel" aria-labelledby="tb-profile">...</div>
+        </div>
+    </div>
+</section>

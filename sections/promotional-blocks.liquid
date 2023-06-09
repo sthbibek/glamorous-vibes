@@ -3,24 +3,40 @@
         <div class="section-grid">
             {% for block in section.blocks %}
                 <div class="section-block">
-                    {% if block.settings.promo_image %}
-                        <figure class="section-block-img">
-                            <img src="{{ block.settings.promo_image | img_url: '600x600' }}" width="600" height="600" alt="{{ block.settings.promo_image.image.id }}">
-                        </figure>
-                    {% endif %}
-                    {% if block.settings.promo_heading or block.settings.promo_link %}
-                        <div class="section-block-content">
-                            <h3 class="section-block-title">{{ block.settings.promo_heading }}</h3>
-                            {% if block.settings.promo_link %}
-                                <div class="btn-holder">
-                                    <a href="{{ block.settings.promo_link }}" class="btn btn-link">
-                                        {{ block.settings.promo_btn_txt }}
-                                        <span>{% include 'icon-arrow-right' %}</span>
-                                    </a>
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endif %}
+					{% if section.settings.link_on_whole_block %}
+						<a href="{{ block.settings.promo_link }}">
+					{% endif %}
+                  	<div class="section-block-inner">
+						{% if block.settings.promo_image %}
+							<figure class="section-block-img">
+								<img src="{{ block.settings.promo_image | img_url: '600x600' }}" width="600" height="600" alt="{{ block.settings.promo_image.image.id }}">
+							</figure>
+						{% endif %}
+						{% if block.settings.promo_heading or block.settings.promo_link %}
+							<div class="section-block-content">
+								<h3 class="section-block-title">{{ block.settings.promo_heading }}</h3>
+								{% if block.settings.promo_link %}
+									<div class="btn-holder">
+										{% if section.settings.link_on_whole_block %}
+											<span class="btn btn-link">
+										{% else %}
+											<a href="{{ block.settings.promo_link }}" class="btn btn-link">
+										{% endif %}
+											{{ block.settings.promo_btn_txt }}
+											<span>{% include 'icon-arrow-right' %}</span>
+										{% if section.settings.link_on_whole_block %}
+											</span>
+										{% else %}
+											</a>
+										{% endif %}
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+					</div>
+					{% if section.settings.link_on_whole_block %}
+						</a>
+					{% endif %}
                 </div>
             {% endfor %}
         </div>
